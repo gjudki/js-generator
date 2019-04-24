@@ -1,0 +1,39 @@
+body{
+    background: black;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.cell {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.marker {
+    display: block;
+    position: relative;
+    height: 20px;
+    background: red;
+}
+
+.marker label {
+    font-size: 10px;
+    line-height: 10px;
+    text-align: center;
+    width: 20px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+.row {
+    display: block;
+}
+
+
