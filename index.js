@@ -2,22 +2,30 @@
 
 "use strict";
 
+// Data reference for future storage
 let data = [];
+
+// Parent element of the grid
 let gridElem = document.getElementById("Grid");
 
-let decayInterval;;
+// The value of decay affects the probability of a resource based on the quantity
+let decay;
+let decayInterval;
 let decayExponent;
 
+// Also used for decay... should probably rename
 let entityCount = 0;
 
+// The color of the lil' boxes
 let markColor;
+
+// How likely a square is to inherit a resource
 let probability;
-let decay;
+
+// Square grud suze
 let size;
-const powers = [
 
-];
-
+// List of items to processed
 let processQue = [];
 
 var grid = {
