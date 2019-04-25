@@ -30,8 +30,8 @@ let processQue = [];
 
 var grid = {
     generate: function(){        
-        this._clear(true);
-        this._build();
+        grid._clear(true);
+        grid._build();
     },
     _build: function() {
         
@@ -50,7 +50,7 @@ var grid = {
             gridElem.appendChild(r);
         }
 
-        this._createEvents();
+        grid._createEvents();
     },
     _createEvents: function(){
         let all = document.querySelectorAll('.cell');
@@ -58,21 +58,21 @@ var grid = {
         let _this = this;
         for (let i = 0; i < all.length; i++) {
             all[i].addEventListener("click", function(e){
-                _this._seed(e);
+                grid._seed(e);
             });
         }
     },
     _seed: function(e){
         let index = e.target.getAttribute('data-pos').split('-');
-        this._clear();
-        this._createMarkColor();
+        grid._clear();
+        grid._createMarkColor();
     
         index[0] = Number(index[0]);
         index[1] = Number(index[1]);
 
-        this._addEntity(e.target, index, 100);
-        this._setNeighbors(index);
-        this._runProcessQue();
+        grid._addEntity(e.target, index, 100);
+        grid._setNeighbors(index);
+        grid._runProcessQue();
 
     },
     _setNeighbors: function(index){
@@ -124,7 +124,7 @@ var grid = {
                 
                 let elem = document.querySelectorAll(`[data-pos='${processQue[index][0]}-${processQue[index][1]}']`)[0];
 
-                _this._processCell(processQue[index], elem);
+                grid._processCell(processQue[index], elem);
             }
         }
         console.log('entity count: ', entityCount);
@@ -146,8 +146,8 @@ var grid = {
 
         if (ran <= probability){
             entityCount++
-            this._addEntity(elem, index, probability);
-            this._setNeighbors(index);
+            grid._addEntity(elem, index, probability);
+            grid._setNeighbors(index);
         }
     },
     _addEntity: function(parent, index, value){
