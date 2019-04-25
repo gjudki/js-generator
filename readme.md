@@ -1,3 +1,5 @@
+![alt text](https://github.com/gjudki/js-generator/header.png)
+
 # JS Generator thing
 
 Having a bit of fun making a procedural generator. Just open the damn thing and it works.
