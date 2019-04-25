@@ -1,4 +1,4 @@
-![alt text](https://github.com/gjudki/js-generator/header.png)
+![alt text](https://github.com/gjudki/js-generator/blob/master/header.png)
 
 # JS Generator thing
 
