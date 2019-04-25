@@ -8,4 +8,4 @@ Having a bit of fun making a procedural generator. Just open the damn thing and 
 
 1. generate by seeding from neighboring matrix
 2. pathfinding/river function
-3. play with the z axix for a topographical representation
+3. play with the z axis for a topographical representation
