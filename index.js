@@ -13,8 +13,8 @@ let decay;
 let decayInterval;
 let decayExponent;
 
-// Also used for decay... should probably rename
-let entityCount = 0;
+// Also used for decay...
+let newEntityCount = 0;
 
 // The color of the lil' boxes
 let markColor;
@@ -22,19 +22,23 @@ let markColor;
 // How likely a square is to inherit a resource
 let probability;
 
-// Square grud suze
+// Square grid size
 let size;
 
-// List of items to processed
+// List of items to be processed
 let processQue = [];
 
+
 var grid = {
-    generate: function(){        
+
+    // Init the grid
+    generate: () => {        
         grid._clear(true);
         grid._build();
     },
-    _build: function() {
-        
+    // Create the grid
+    _build: () => {
+        // Grid is composed of 'rows' and 'columns'
         for (let i = 0; i < size; i++) {
             let r = document.createElement('span');
             r.className = 'row';
@@ -49,20 +53,20 @@ var grid = {
             }
             gridElem.appendChild(r);
         }
-
         grid._createEvents();
     },
-    _createEvents: function(){
+    // Setup click events on cells
+    _createEvents: () =>{
         let all = document.querySelectorAll('.cell');
 
-        let _this = this;
         for (let i = 0; i < all.length; i++) {
-            all[i].addEventListener("click", function(e){
+            all[i].addEventListener("click", (e) => {
                 grid._seed(e);
             });
         }
     },
-    _seed: function(e){
+    // Executes behavior on origin cell, "seed"
+    _seed: (e) => {
         let index = e.target.getAttribute('data-pos').split('-');
         grid._clear();
         grid._createMarkColor();
@@ -75,7 +79,8 @@ var grid = {
         grid._runProcessQue();
 
     },
-    _setNeighbors: function(index){
+    // Find and set top, right, bottom, left neighbors
+    _setNeighbors: (index) => {
         
         let pos = {
             y: lc(index[0]),
@@ -109,15 +114,14 @@ var grid = {
         }
 
         // Keep within grid parameters
-        function lc(v) {
+        const lc = (v) => {
             return (v <= (size - 1)) && (v >= 0) ? v : null;
         }
 
 
     },
-    _runProcessQue: function() {
-        let _this = this;
-        let max = 0;
+    // Iterate through qued cells to determine their viability
+    _runProcessQue: () => {
         for (let index = 0; index < processQue.length; index++) {
 
             if (typeof (processQue[index][0]) === 'number' && typeof (processQue[index][1]) === 'number'){
@@ -127,30 +131,35 @@ var grid = {
                 grid._processCell(processQue[index], elem);
             }
         }
-        console.log('entity count: ', entityCount);
+        console.log('entity count: ', newEntityCount);
         processQue = [];
     },
-    _processCell: function(index, elem){
+    // Determine viability of a cell
+    _processCell: (index, elem) => {
         //elem.style.backgroundColor = 'blue';
         // Chance to process cell
         let ran = Math.random() * (100 - 0);
 
-        if(decay !== 0 && (entityCount === decayInterval ** decayExponent)){
+        if(decay !== 0 && (newEntityCount === decayInterval ** decayExponent)){
             decayExponent++
             probability = probability - decay;
             markColor[3] = markColor[3] - .1;
-            entityCount = 0;
+            newEntityCount = 0;
             //debugger;
             
         }
 
         if (ran <= probability){
-            entityCount++
+            newEntityCount++
             grid._addEntity(elem, index, probability);
             grid._setNeighbors(index);
         }
     },
-    _addEntity: function(parent, index, value){
+    /**
+    * Clears grid data
+    * @param {boolean} clearHtml - Destroy grid element
+    */
+    _addEntity: (parent, index, value) => {
         let marker = document.createElement('span');
 
         index[0] = Number(index[0]);
@@ -164,7 +173,8 @@ var grid = {
 
         data[index[0]][index[1]] = value ? value : '0';
     },
-    _createMarkColor: function(){
+    // Generates random rgba color (array)
+    _createMarkColor: () =>{
         markColor = [
             Math.floor(Math.random() * (255 - 0)),
             Math.floor(Math.random() * (255 - 0)),
@@ -172,11 +182,17 @@ var grid = {
             1
         ];
     },
-    _clear: function(clearHTML){
+
+    /**
+     * Clears grid data
+     * @param {boolean} clearHtml - Destroy grid element
+     * @todo Add more js doc blocks
+     */
+    _clear: (clearHTML) => {
         processQue = [];
         decayInterval = 2;
         decayExponent = 2;
-        entityCount = 0;
+        newEntityCount = 0;
         probability = Number(document.getElementById("Probability").value);
         decay = Number(document.getElementById("Decay").value);
         size = Number(document.getElementById("Size").value);
