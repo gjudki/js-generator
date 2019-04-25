@@ -31,12 +31,12 @@ let processQue = [];
 
 var grid = {
 
-    // Init the grid
+    /** Init the grid */
     generate: () => {        
         grid._clear(true);
         grid._build();
     },
-    // Create the grid
+    /** Create the grid */
     _build: () => {
         // Grid is composed of 'rows' and 'columns'
         for (let i = 0; i < size; i++) {
@@ -55,7 +55,7 @@ var grid = {
         }
         grid._createEvents();
     },
-    // Setup click events on cells
+    /** Setup click events on cells */
     _createEvents: () =>{
         let all = document.querySelectorAll('.cell');
 
@@ -65,7 +65,10 @@ var grid = {
             });
         }
     },
-    // Executes behavior on origin cell, "seed"
+    /**
+     * Executes behavior on origin cell, "seed"
+     * @param {object} e - Event object of clicked item
+     */
     _seed: (e) => {
         let index = e.target.getAttribute('data-pos').split('-');
         grid._clear();
@@ -79,7 +82,10 @@ var grid = {
         grid._runProcessQue();
 
     },
-    // Find and set top, right, bottom, left neighbors
+    /**
+     * Iterate through qued cells to determine their viability
+     * @param {array} index - array index of target element
+     */
     _setNeighbors: (index) => {
         
         let pos = {
@@ -90,8 +96,6 @@ var grid = {
             right: lc(index[1] + 1),
             left: lc(index[1] - 1),
         }
-        //debugger;
-        // TOP
 
         if ( (typeof(pos.top) === 'number' ) && (data[pos.top][pos.x] === 0)){
             processQue.push([pos.top, pos.x]);
@@ -113,14 +117,17 @@ var grid = {
             data[pos.y][pos.left] = 1;            
         }
 
-        // Keep within grid parameters
+        /**
+         * filters out values outside of grid
+         * @param {number} v - value of a position
+         * @return {number} value should be within appropriate range according to grid size, or returns null.
+         * * This keeps us from queing up cells that don't exist on the grid
+         */
         const lc = (v) => {
             return (v <= (size - 1)) && (v >= 0) ? v : null;
         }
-
-
     },
-    // Iterate through qued cells to determine their viability
+    /** Iterate through qued cells to determine their viability */
     _runProcessQue: () => {
         for (let index = 0; index < processQue.length; index++) {
 
@@ -134,9 +141,13 @@ var grid = {
         console.log('entity count: ', newEntityCount);
         processQue = [];
     },
-    // Determine viability of a cell
+    /**
+     * Determine viability of a cell
+     * @param {array} index - XY of element
+     * @param {object} elem - DOM object, row to attach to
+     */
     _processCell: (index, elem) => {
-        //elem.style.backgroundColor = 'blue';
+
         // Chance to process cell
         let ran = Math.random() * (100 - 0);
 
@@ -156,9 +167,11 @@ var grid = {
         }
     },
     /**
-    * Clears grid data
-    * @param {boolean} clearHtml - Destroy grid element
-    */
+    * Create HTML marker node
+     * @param {object} parent - DOM object to append to
+     * @param {array} index - XY of element
+     * @param {string} value - contents of marker label
+     */
     _addEntity: (parent, index, value) => {
         let marker = document.createElement('span');
 
@@ -173,7 +186,7 @@ var grid = {
 
         data[index[0]][index[1]] = value ? value : '0';
     },
-    // Generates random rgba color (array)
+    /** Generates random rgba color (array) */
     _createMarkColor: () =>{
         markColor = [
             Math.floor(Math.random() * (255 - 0)),
@@ -186,7 +199,6 @@ var grid = {
     /**
      * Clears grid data
      * @param {boolean} clearHtml - Destroy grid element
-     * @todo Add more js doc blocks
      */
     _clear: (clearHTML) => {
         processQue = [];
