@@ -1,24 +1,68 @@
 <link rel="stylesheet" href="style.css">
 
 <body>
-<button onclick="grid.generate()">generate grid</button>
+    <div class="container">
+        <div class="main">
+            <div id="GridNorthBorder" class="border-grid"></div>
+            <div id="GridWestBorder" class="border-grid"></div>
+            <div id="GridEastBorder" class="border-grid"></div>
+            <div id="Grid"></div>
+            <div id="GridSouthBorder" class="border-grid"></div>
+        </div>
+        <div class="menu">
 
-<label for="Size">Size</label>
-<input type="number" name="Size" id="Size" value="30" />
+            <label for="border-seed">Border Seed</label>
+            <br>
+            <br>
+            <input type="checkbox" name="border-seed-n">N
+            <input type="checkbox" name="border-seed-e">E
+            <input type="checkbox" name="border-seed-s">S
+            <input type="checkbox" name="border-seed-w">W
+            <br>
+            <br>
 
-<label for="Probability">Probability</label>
-<input type="number" name="Probability" id="Probability" value="100" />
+            <label for="border-seed">Border Seed Variability</label>
+            <br>
+            <input type="number" name="BorderSeedVariability" id="BorderSeedVariability" value="10" />
+            <br>
+            <br>
 
-<label for="Decay">Decay</label>
-<input type="number" name="Decay" id="Decay" value="10" />
+            <label for="border-seed">Stray</label>
+            <br>
+            <input type="number" name="Stray" id="Stray" value="10" />
+            <br>
+            <br>
 
-<label for="DecayInterval">Decay Interval</label>
-<input type="number" name="DecayInterval" id="DecayInterval" value="2" />
+            <label for="Size">Size</label>
+            <br>
+            <input type="number" name="Size" id="Size" value="10" />
+            <br>
 
-<label for="DecayExponent">Decay Exponent</label>
-<input type="number" name="DecayExponent" id="DecayExponent" value="2" />
+            <label for="Probability">Probability</label>
+            <br>
+            <input type="number" name="Probability" id="Probability" value="100" />
+            <br>
 
-<div id="Grid"></div>
+            <label for="Decay">Decay</label>
+            <br>
+            <input type="number" name="Decay" id="Decay" value="10" />
+            <br>
+
+            <label for="DecayInterval">Decay Interval</label>
+            <br>
+            <input type="number" name="DecayInterval" id="DecayInterval" value="2" />
+            <br>
+
+            <label for="DecayExponent">Decay Exponent</label>
+            <br>
+            <input type="number" name="DecayExponent" id="DecayExponent" value="2" />
+            <br>
+            <br>
+            <br>
+            <button id="Generate" onclick="grid.generate()">generate grid</button>
+
+        </div>
+    </div>
 </body>
 
 <script src="index.js"></script>
